@@ -8,7 +8,18 @@ public class Prompt
     public Prompt()
     {
         prompts = new List<string>();
+        InitializePrompts();
     }
+
+    private void InitializePrompts()
+    {
+        prompts.Add("What made you feel happy today?");
+        prompts.Add("What goal did you work on today?");
+        prompts.Add("Who did you meet today?");
+        prompts.Add("How was your family?");
+        prompts.Add("How did you help someone else today?");
+    }
+
 
     public string Random()
     {
@@ -22,15 +33,6 @@ public class Prompt
         return prompts[index];
     }
 
-    public void Display()
-    {
-        Console.WriteLine("Prompts:");
-        foreach (var prompt in prompts)
-        {
-            Console.WriteLine(prompt);
-        }
-    }
-
     public void Add()
     {
         Console.Write("Enter a new prompt: ");
@@ -41,19 +43,19 @@ public class Prompt
 
     public void Remove()
     {
-        Console.WriteLine("Select a prompt to remove:");
+        Console.WriteLine("Entry List");
         for (int i = 0; i < prompts.Count; i++)
         {
             Console.WriteLine($"{i + 1}. {prompts[i]}");
         }
 
         Console.Write("Enter the number of the prompt to remove: ");
-        if (int.TryParse(Console.ReadLine(), out int selectedIndex))
+        if (int.TryParse(Console.ReadLine(), out int selectedPrompt))
         {
-            if (selectedIndex >= 1 && selectedIndex <= prompts.Count)
+            if (selectedPrompt >= 1 && selectedPrompt <= prompts.Count)
             {
-                string removedPrompt = prompts[selectedIndex - 1];
-                prompts.RemoveAt(selectedIndex - 1);
+                string removedPrompt = prompts[selectedPrompt - 1];
+                prompts.RemoveAt(selectedPrompt - 1);
                 Console.WriteLine($"Prompt '{removedPrompt}' removed successfully.");
             }
             else

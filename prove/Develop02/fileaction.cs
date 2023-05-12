@@ -7,33 +7,67 @@ public class FileAction
 
     public FileAction(string fileName)
     {
-        this.fileName = fileName;
+            this.fileName = "default.json";
     }
 
     public void Load(Journal journal, Prompt prompt)
     {
-        if (File.Exists(fileName))
+        Console.Write("Enter the file name or leave blank to load default.json: ");
+        string fileName = Console.ReadLine();
+        bool fileop = true;
+        while (fileop)
         {
-            string json = File.ReadAllText(fileName);
+            if (!File.Exists(fileName))
+            {
+                break;
+            }
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                fileName = "default.json";
+                string json = File.ReadAllText(fileName);
 
-            // Convert from json to objects
-            var data = JsonConvert.DeserializeObject<Data>(json);
+                // Convert from json to objects
+                var data = JsonConvert.DeserializeObject<Data>(json);
 
-            // Load into journal and prompts
-            journal.Created = data.Created;
-            journal.Name = data.JournalName;
-            journal.Entries = data.Entries;
-            prompt.prompts = data.Prompts;
+                // Load into journal and prompts
+                journal.Created = data.Created;
+                journal.Entries = data.Entries;
+                prompt.prompts = data.Prompts;
+
+            }
+            if (File.Exists(fileName))
+            {
+                string json = File.ReadAllText(fileName);
+
+                // Convert from json to objects
+                var data = JsonConvert.DeserializeObject<Data>(json);
+
+                // Load into journal and prompts
+                journal.Created = data.Created;
+                journal.Entries = data.Entries;
+                prompt.prompts = data.Prompts;
+            }
+            else
+            {
+                Console.WriteLine("Invalid file name.");
+            }
         }
     }
 
     public void Save(Journal journal, Prompt prompt)
     {
+        Console.Write("Enter the file name or leave blank to save to default.json: ");
+        string fileName = Console.ReadLine();
+
+        if (string.IsNullOrWhiteSpace(fileName))
+        {
+            fileName = "default.json";
+        }
+
         // Create a data object with the jornal, entry, and prompt information
         var data = new Data
         {
             Created = journal.Created,
-            JournalName = journal.Name,
             Entries = journal.Entries,
             Prompts = prompt.prompts
         };
@@ -41,17 +75,17 @@ public class FileAction
         // Convert from object to json
         string json = JsonConvert.SerializeObject(data, Formatting.Indented);
 
-        
         // Write the json to file
         File.WriteAllText(fileName, json);
     }
 
+
     private class Data
     {
-        public DateTime Created { get; set; }
-        public string JournalName { get; set; }
-        public List<Entry> Entries { get; set; }
-        public List<string> Prompts { get; set; }
+        public DateTime Created;
+
+        public List<Entry> Entries;
+        public List<string> Prompts;
     }
 
 }

@@ -1,8 +1,8 @@
 public class Entry
 {
-    public DateTime Date { get; set; }
-    public string Prompt { get; set; }
-    public string Text { get; set; }
+    public DateTime Date;
+    public string Prompt;
+    public string Text;
 
     public void Display()
     {
