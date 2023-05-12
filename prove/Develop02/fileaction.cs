@@ -16,10 +16,10 @@ public class FileAction
         {
             string json = File.ReadAllText(fileName);
 
-            // Deserialize the JSON to the Journal and Prompt objects
+            // Convert from json to objects
             var data = JsonConvert.DeserializeObject<Data>(json);
 
-            // Copy the loaded data to the Journal and Prompt objects
+            // Load into journal and prompts
             journal.Created = data.Created;
             journal.Name = data.JournalName;
             journal.Entries = data.Entries;
@@ -29,7 +29,7 @@ public class FileAction
 
     public void Save(Journal journal, Prompt prompt)
     {
-        // Create a new Data object and copy the necessary data from Journal and Prompt objects
+        // Create a data object with the jornal, entry, and prompt information
         var data = new Data
         {
             Created = journal.Created,
@@ -38,10 +38,11 @@ public class FileAction
             Prompts = prompt.prompts
         };
 
-        // Serialize the Data object to JSON
+        // Convert from object to json
         string json = JsonConvert.SerializeObject(data, Formatting.Indented);
 
-        // Write the JSON to the file
+        
+        // Write the json to file
         File.WriteAllText(fileName, json);
     }
 
@@ -52,4 +53,5 @@ public class FileAction
         public List<Entry> Entries { get; set; }
         public List<string> Prompts { get; set; }
     }
+
 }
