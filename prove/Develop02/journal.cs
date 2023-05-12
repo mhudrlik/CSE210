@@ -56,12 +56,6 @@ public class Journal
         Console.WriteLine("Journal entry created successfully.");
     }
 
-
-    public void Erase(Entry entry)
-    {
-        Entries.Remove(entry);
-    }
-
     public void Display()
     {
         Console.WriteLine("Created: " + Created.ToString("yyyy-MM-dd"));
