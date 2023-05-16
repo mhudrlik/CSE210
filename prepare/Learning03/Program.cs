@@ -1,21 +1,21 @@
 using System;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 class Program
 {
-    static async Task Main(string[] args)
+    static void Main(string[] args)
     {
-        string url = "http://www.journalpromptgenerator.com/#";
-        HttpClient client = new HttpClient();
-        string content = await client.GetStringAsync(url);
-
-        string startTag = "<div class=\"prompt\" id=\"prompt\" style=\"padding-bottom: 40px;\">";
-        string endTag = "</div>";
-        int startIndex = content.IndexOf(startTag) + startTag.Length;
-        int endIndex = content.IndexOf(endTag, startIndex);
-        string prompt = content.Substring(startIndex, endIndex - startIndex).Trim();
-
-        Console.WriteLine(prompt);
+        Fraction fraction1 = new Fraction();
+        Fraction fraction2 = new Fraction(5);
+        Fraction fraction3 = new Fraction(3, 4);
+        Fraction fraction4 = new Fraction(1, 3);
+        
+        Console.WriteLine(fraction1.GetFractionString());
+        Console.WriteLine(fraction1.GetDecimalValue());
+        Console.WriteLine(fraction2.GetFractionString());
+        Console.WriteLine(fraction2.GetDecimalValue());
+        Console.WriteLine(fraction3.GetFractionString());
+        Console.WriteLine(fraction3.GetDecimalValue());
+        Console.WriteLine(fraction4.GetFractionString());
+        Console.WriteLine(fraction4.GetDecimalValue());
     }
 }
